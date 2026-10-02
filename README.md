@@ -199,8 +199,4 @@ please cite the paper.
 
 ## 中文概要
 
-本仓库是上述论文的代码与模型：`segmentation/` 是培养皿抑菌圈/药片的语义分割（ResNet18+U-Net，
-纯 PyTorch，640×640，宏平均 Dice 0.9409），`segmentation/myseg/` 里保留了论文口径的测量实现
-（±15° 扇区采样 + 6 mm 药片内标），`classification/` 是药片缩写七分类（DiskNet-small@224，单模型+TTA 准确率 0.929），
-`app/` 是 .NET MAUI 端（内含两个 ONNX）。78 张平板原图与 YOLO-seg 标注随仓库提供；
-分类数据集因来源限制需向通讯作者申请；推理侧的复现脚本见 `tools/verify/`。
+本仓库是上述论文的代码与模型。`segmentation/`：培养皿抑菌圈/药片语义分割（ResNet18+U-Net，纯 PyTorch，640×640，宏平均 Dice 0.9409）；`segmentation/myseg/`：论文口径测量实现（±15° 扇区采样 + 6 mm 药片内标）；`classification/`：药片缩写七分类（DiskNet-small@224，单模型+TTA 准确率 0.929）；`app/`：.NET MAUI 应用（内含两个 ONNX）；`tools/verify/`：推理侧复现脚本。78 张平板原图与标注随仓库提供；分类数据集因来源限制需向通讯作者申请。
