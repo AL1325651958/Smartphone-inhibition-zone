@@ -1,0 +1,48 @@
+# ── Python ──
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ── 训练产物与中间数据（可由脚本重新生成，不进仓库）──
+data/
+*_aug/
+runs/
+runs_*/
+export/
+export_*/
+logs/
+*.log
+*.state.pt
+*.npz
+*.npy
+*.pt.tmp
+
+# 只保留 weights/ 下的两个交付权重
+!weights/*.pt
+
+# ── .NET / MAUI ──
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.binlog
+TestResults/
+
+# ── 编辑器 / 系统 ──
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+*.swp
+~$*
+
+# ── 临时核验产物 ──
+tools/verify/out_*/
+tools/verify/cls_test/
+tools/verify/test_upright/

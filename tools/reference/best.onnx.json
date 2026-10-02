@@ -1,0 +1,15 @@
+{
+  "img_size": 640,
+  "encoder": "resnet18",
+  "num_classes": 2,
+  "class_names": {
+    "0": "Area",
+    "1": "Yaoping"
+  },
+  "input": "input",
+  "output": "probs",
+  "input_range": "0..255 RGB float32",
+  "output_semantics": "sigmoid probs",
+  "thresh": 0.45,
+  "opset": 17
+}

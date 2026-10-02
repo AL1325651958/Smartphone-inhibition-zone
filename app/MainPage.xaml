@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Antibacterial_zone.MainPage"
+             Title="Antibacterial zone">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16,12" Spacing="12">
+
+            <!-- 原图显示 -->
+            <Image
+                x:Name="SelectedImage"
+                HeightRequest="200"
+                Aspect="AspectFit"
+                BackgroundColor="#1a1a1a"
+                 />
+
+            <!-- 状态标签 -->
+            <Label
+                x:Name="StatusLabel"
+                Text="Ready"
+                FontSize="18"
+                TextColor="#aaaaaa"
+                HorizontalOptions="Center" />
+
+            <!-- 进度条（平时隐藏，处理中显示）-->
+            <ProgressBar
+                x:Name="AnalysisProgress"
+                Progress="0"
+                IsVisible="False"
+                ProgressColor="#1D9E75" />
+
+            <!-- 按钮行：Upload | Analyze | Capture -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                <Button
+                    x:Name="OpenButton"
+                    Text="Upload"
+                    Clicked="OnOpenClicked"
+                    Grid.Column="0" />
+                <Button
+                    x:Name="AnalyzeButton"
+                    Text="Analyze"
+                    Clicked="OnAnalyzeClicked"
+                    Grid.Column="1" />
+                <Button
+                    x:Name="CaptureButton"
+                    Text="Capture"
+                    Clicked="OnCaptureClicked"
+                    Grid.Column="2" />
+            </Grid>
+
+            <!-- 裁剪图显示 -->
+            <Image
+                x:Name="CroppedImage"
+                HeightRequest="200"
+                Aspect="AspectFit"
+                BackgroundColor="#1a1a1a" />
+
+            <!-- 翻页控件：← Prev  |  1 / 7  |  Next → -->
+            <Grid ColumnDefinitions="*,Auto,*" ColumnSpacing="10">
+                <Button
+                    x:Name="PreviousButton"
+                    Text="&#8592; Prev"
+                    Clicked="OnPreviousClicked"
+                    IsEnabled="False"
+                    Grid.Column="0" />
+                <Label
+                    x:Name="CropPositionLabel"
+                    Text="0 / 0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    FontSize="14"
+                    Grid.Column="1" />
+                <Button
+                    x:Name="NextButton"
+                    Text="Next &#8594;"
+                    Clicked="OnNextClicked"
+                    IsEnabled="False"
+                    Grid.Column="2" />
+            </Grid>
+
+            <!-- 导出按钮行：Export | Save Raw Crops -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,4,0,0">
+                <Button
+                    x:Name="ExportButton"
+                    Text="Export"
+                    Clicked="OnExportClicked"
+                    IsEnabled="False"
+                    Grid.Column="0" />
+                <Button
+                    x:Name="SaveRawButton"
+                    Text="Save Raw Crops"
+                    Clicked="OnSaveRawClicked"
+                    IsEnabled="False"
+                    Grid.Column="1" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

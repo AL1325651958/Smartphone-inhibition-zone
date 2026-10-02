@@ -1,0 +1,112 @@
+{
+ "checkpoint": "F:\\Code\\SCI\\Nanjing_Children_Hospital\\\u6291\u83cc\u533a\u57df\u5206\u6790_\u8fd4\u4fee\\\u836f\u7247CNN\\runs\\orig\\best.pt",
+ "checkpoint_sha256": "a0b72fbeb03dcc43f9c91d84462d4bebae200eb7dd3e67dfde4edc9595f5bf6f",
+ "checkpoint_md5": "0f155e23c400ac9a1515acdab04f4678",
+ "checkpoint_bytes": 11440256,
+ "checkpoint_metrics": {
+  "accuracy": 1.0,
+  "balanced_accuracy": 1.0,
+  "macro_precision": 1.0,
+  "macro_f1": 1.0,
+  "macro_specificity": 1.0,
+  "n": 1814,
+  "epoch": 25,
+  "train_loss": 0.3064875468216111,
+  "train_acc": 0.9829922566371682,
+  "val_loss": 0.037458820570395825,
+  "lr": 0.0,
+  "secs": 19.468356370925903
+ },
+ "onnx": "F:\\Code\\SCI\\Nanjing_Children_Hospital\\\u6291\u83cc\u533a\u57df\u5206\u6790_\u8fd4\u4fee\\Antibacterial zone\\_new_models\\class.onnx",
+ "onnx_sha256": "8aa098633ae45847fde83fd52e77f0239b1362cf79c161409a8ada305b564c81",
+ "onnx_bytes": 11465076,
+ "opset": 17,
+ "input": {
+  "name": "image",
+  "dtype": 1,
+  "shape": [
+   "N",
+   3,
+   160,
+   160
+  ]
+ },
+ "outputs": [
+  {
+   "name": "logits",
+   "dtype": 1,
+   "shape": [
+    "N",
+    7
+   ]
+  },
+  {
+   "name": "probs",
+   "dtype": 1,
+   "shape": [
+    "N",
+    7
+   ]
+  }
+ ],
+ "ops": [
+  "Add",
+  "Constant",
+  "Conv",
+  "Div",
+  "Flatten",
+  "Gemm",
+  "GlobalAveragePool",
+  "InstanceNormalization",
+  "MaxPool",
+  "Mul",
+  "Reshape",
+  "Shape",
+  "Sigmoid",
+  "Softmax",
+  "Sub"
+ ],
+ "n_nodes": 321,
+ "n_params": 2852255,
+ "classes": [
+  "CRO",
+  "DA",
+  "E",
+  "LEV",
+  "LZD",
+  "P",
+  "VA"
+ ],
+ "export_secs": 1.3274073600769043,
+ "verification": {
+  "by_shape": [
+   {
+    "batch": 1,
+    "max_abs_diff_logits": 2.5153160095214844e-05,
+    "max_abs_diff_probs": 1.4901161193847656e-06,
+    "max_rel_diff_logits": 0.00047356676077470183,
+    "max_abs_diff_logits_f64_vs_ort": 2.531369490021973e-05,
+    "n_top1_disagreements": 0,
+    "n_inputs": 3
+   },
+   {
+    "batch": 5,
+    "max_abs_diff_logits": 2.5600194931030273e-05,
+    "max_abs_diff_probs": 1.430511474609375e-06,
+    "max_rel_diff_logits": 0.0004657302924897522,
+    "max_abs_diff_logits_f64_vs_ort": 2.531369490021973e-05,
+    "n_top1_disagreements": 0,
+    "n_inputs": 15
+   }
+  ],
+  "n_random_inputs": 18,
+  "max_abs_diff_logits": 2.5600194931030273e-05,
+  "max_abs_diff_probs": 1.4901161193847656e-06,
+  "max_rel_diff_logits": 0.00047356676077470183,
+  "max_abs_diff_logits_f64_vs_ort": 2.531369490021973e-05,
+  "n_top1_disagreements": 0,
+  "ok": true
+ },
+ "torch": "2.14.0+cu126",
+ "img_size": 160
+}

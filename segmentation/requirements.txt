@@ -1,0 +1,27 @@
+﻿# Antibacterial zone mask - dependencies
+#
+# Installed into the base site-packages. Verified working:
+#   torch 2.14.0+cu126 | torchvision 0.29.0+cu126 | cv2 5.0.0
+#   onnxruntime 1.23.2 | onnx 1.22.0 | CUDA available (RTX 3070 Laptop 8GB)
+#
+# NOTE: albumentations is deliberately NOT used.
+# Data augmentation is implemented directly in myseg/augment.py with
+# OpenCV + NumPy. That avoids C-extension dependencies and the
+# non-ASCII path pitfalls of third-party augmentation libraries.
+
+# ResNet pretrained encoder (must come from the PyTorch cu126 index,
+# otherwise the PyPI wheel tries to replace the CUDA-enabled torch):
+#   pip install torchvision==0.29.0+cu126 --index-url https://download.pytorch.org/whl/cu126
+torchvision==0.29.0+cu126
+
+# Image IO and augmentation
+opencv-python>=4.10
+
+# Training / evaluation
+numpy>=1.26
+tqdm>=4.66
+matplotlib>=3.7
+
+# ONNX export and consistency check
+onnx>=1.16
+onnxruntime>=1.18

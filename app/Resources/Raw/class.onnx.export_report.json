@@ -1,0 +1,53 @@
+{
+ "checkpoint": "F:\\Code\\SCI\\Nanjing_Children_Hospital\\\u6291\u83cc\u533a\u57df\u5206\u6790_\u8fd4\u4fee\\\u836f\u7247CNN\\runs\\disknet224_small\\best.pt",
+ "checkpoint_sha256": "45c23b51c6c8f6b7f14d4282336d6c8c30c711048447f39a87713af8c7537fe1",
+ "variant": "small",
+ "params": 3879467,
+ "onnx": "F:\\Code\\SCI\\Nanjing_Children_Hospital\\\u6291\u83cc\u533a\u57df\u5206\u6790_\u8fd4\u4fee\\Antibacterial zone\\_new_models\\class_disknet.onnx",
+ "onnx_sha256": "1b79fd166f62054ebe87e7519143e32605cd212d52cf02125cc99e0583233530",
+ "onnx_bytes": 15545996,
+ "opset": 17,
+ "input": {
+  "name": "image",
+  "dtype": "float32",
+  "shape": [
+   "N",
+   3,
+   224,
+   224
+  ],
+  "range": "0..255 greyscale replicated to 3 channels"
+ },
+ "outputs": [
+  {
+   "name": "logits",
+   "shape": [
+    "N",
+    7
+   ]
+  },
+  {
+   "name": "probs",
+   "shape": [
+    "N",
+    7
+   ]
+  }
+ ],
+ "classes": [
+  "CRO",
+  "DA",
+  "E",
+  "LEV",
+  "LZD",
+  "P",
+  "VA"
+ ],
+ "mean_std": [
+  0.5,
+  0.25
+ ],
+ "max_abs_diff_logits": 2.384185791015625e-07,
+ "max_abs_diff_probs": 5.960464477539063e-08,
+ "top1_disagreements": 0
+}

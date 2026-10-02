@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    仅用于「在本机验证 ZoneSegModel.cs / PillClassifier.cs 的推理与预处理」的
+    轻量控制台工程：不依赖 MAUI 工作负载，也不走 NuGet 还原。
+    依赖的托管/原生 DLL 直接引用 App 上次构建产物 (bin)，因此在离线下也能编译运行。
+    用法见 Program.cs 顶部。
+  -->
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Verify</AssemblyName>
+    <RootNamespace>Antibacterial_zone_Verify</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <NoWarn>$(NoWarn);CS0168;CS0219</NoWarn>
+    <RestorePackages>false</RestorePackages>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AppBinDir>$(MSBuildThisFileDirectory)..\Antibacterial zone\bin\Release\net10.0-windows10.0.19041.0\win-x64</AppBinDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="..\Antibacterial zone\ZoneSegModel.cs" />
+    <Compile Include="..\Antibacterial zone\PillClassifier.cs" />
+    <!-- ImageProcessor 只依赖 SkiaSharp + 上面两个类，一并编译以便检查改动是否自洽 -->
+    <Compile Include="..\Antibacterial zone\ImageProcessor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.ML.OnnxRuntime">
+      <HintPath>$(AppBinDir)\Microsoft.ML.OnnxRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp">
+      <HintPath>$(AppBinDir)\SkiaSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <!-- 原生库放到 exe 旁边 -->
+  <ItemGroup>
+    <None Include="$(AppBinDir)\onnxruntime.dll" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="$(AppBinDir)\onnxruntime_providers_shared.dll" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="$(AppBinDir)\libSkiaSharp.dll" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
