@@ -1,7 +1,7 @@
 """
 myseg/dataset.py — PyTorch Dataset
 
-从 data/<split>/{images,labels} 读图与 YOLO-seg 标签，栅格化成
+从 data/<split>/{images,labels} 读图与多边形分割标签，栅格化成
 (num_classes, IMG_SIZE, IMG_SIZE) 的多通道 mask。
 
 坐标约定

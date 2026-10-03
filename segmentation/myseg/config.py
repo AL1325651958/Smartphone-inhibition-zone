@@ -8,7 +8,7 @@ from pathlib import Path
 # ── 路径 ────────────────────────────────────────────────
 ROOT = Path(__file__).resolve().parent.parent     # .../Antibacterial zone mask
 SRC_IMAGES = ROOT / "images"                      # 原始 78 张
-SRC_LABELS = ROOT / "labels"                      # 原始 78 个 YOLO-seg 标签
+SRC_LABELS = ROOT / "labels"                      # 原始 78 个多边形标签
 
 DATA = ROOT / "data"                              # 划分输出
 SPLIT_JSON = ROOT / "myseg" / "split.json"        # 划分清单（可追溯）
@@ -40,7 +40,7 @@ AUG_SEED = 20260917
 #   batch size 100 / seed 0 / lr 0.01 / max 300 epochs / patience 30
 #   （论文实际训到 145 轮，最佳 epoch 115）
 #
-# ⚠️ 差异说明：论文那一版是实例分割框架（YOLOv8n-seg），batch=100 是配合该架构
+# ⚠️ 差异说明：论文那一版是实例分割框架，batch=100 是配合该架构
 #    与其训练集规模设定的。本实现改为 ResNet+U-Net，参数量更大、激活显存更高，
 #    本机 RTX 3070 Laptop 只有 8 GB，照搬 batch=100 会直接 OOM。
 #    因此 batch 按本机实际设为 8，其余项均与论文一致，差异在此显式记录。

@@ -1,7 +1,7 @@
 """
-myseg/labels.py — YOLO-seg 标签读写、多边形栅格化、几何测量
+myseg/labels.py — 多边形分割标签读写、多边形栅格化、几何测量
 
-YOLO-seg 标签格式（每行一个实例）：
+多边形分割标签格式（每行一个实例）：
     <class_id> <x1> <y1> <x2> <y2> ... <xn> <yn>
 坐标是【归一化】的，范围 0–1。
 
@@ -72,7 +72,7 @@ def read_label_norm(path: Path) -> list[tuple[int, np.ndarray]]:
 # ────────────────────────────────────────────────
 def write_label(path: Path, instances: list[tuple[int, np.ndarray]],
                 img_w: int, img_h: int) -> None:
-    """把像素坐标多边形写成 YOLO-seg 标签（归一化，裁剪到 [0,1]）。"""
+    """把像素坐标多边形写成多边形分割标签（归一化，裁剪到 [0,1]）。"""
     lines: list[str] = []
     for cls, pts in instances:
         if pts is None or len(pts) < 3:

@@ -383,7 +383,7 @@ def extract_instances(prob: np.ndarray, thresh: float = THRESH,
 # ════════════════════════════════════════════════
 #  真值：labels/<stem>.txt → 实例掩膜（原始分辨率）
 # ════════════════════════════════════════════════
-def read_yolo_seg(path: Path, img_w: int, img_h: int):
+def read_polygon_seg(path: Path, img_w: int, img_h: int):
     out = []
     p = Path(path)
     if not p.is_file():
@@ -412,7 +412,7 @@ def gt_instances(stem: str, w: int, h: int, size: int = IMG_SIZE):
     再**最近邻**缩放到 640×640 后参与 IoU 匹配。只保留 640 掩膜（省内存）。
     返回 {cls: [mask640, ...]}，mask 为 uint8 0/1。
     """
-    inst = read_yolo_seg(SRC_LABELS / f"{stem}.txt", w, h)
+    inst = read_polygon_seg(SRC_LABELS / f"{stem}.txt", w, h)
     out: dict[int, list[np.ndarray]] = {ZONE: [], DISK: []}
     for cls, pts in inst:
         if cls not in out or len(pts) < 3:

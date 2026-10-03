@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC_IMAGES = ROOT / "images"          # 原始 78 张（只读）
-SRC_LABELS = ROOT / "labels"          # 原始 78 个 YOLO-seg 标签（只读）
+SRC_LABELS = ROOT / "labels"          # 原始 78 个多边形标签（只读）
 DATA = ROOT / "data"
 SPLIT_JSON = ROOT / "semseg" / "split.json"
 RUNS = ROOT / "runs_semseg"

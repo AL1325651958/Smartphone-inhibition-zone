@@ -1,7 +1,7 @@
 """Train DiskNet (the new multi-scale model) on the augmented dataset.
 
 Optimiser defaults to AdamW, which is what worked for the earlier CNN here;
-use --opt sgd for a YOLO-style run.
+use --opt sgd for a standard SGD run.
 """
 from __future__ import annotations
 

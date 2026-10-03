@@ -30,8 +30,8 @@ else:
 # ────────────────────────────────────────────────
 #  标签读写
 # ────────────────────────────────────────────────
-def read_yolo_seg(path: Path, img_w: int, img_h: int) -> list[tuple[int, np.ndarray]]:
-    """读 YOLO-seg 标签，返回 [(class_id, points_px[N,2]), ...]。"""
+def read_polygon_seg(path: Path, img_w: int, img_h: int) -> list[tuple[int, np.ndarray]]:
+    """读多边形分割标签，返回 [(class_id, points_px[N,2]), ...]。"""
     out: list[tuple[int, np.ndarray]] = []
     p = Path(path)
     if not p.is_file():
@@ -55,7 +55,7 @@ def read_yolo_seg(path: Path, img_w: int, img_h: int) -> list[tuple[int, np.ndar
     return out
 
 
-def write_yolo_seg(path: Path, instances: list[tuple[int, np.ndarray]],
+def write_polygon_seg(path: Path, instances: list[tuple[int, np.ndarray]],
                    img_w: int, img_h: int) -> None:
     lines = []
     for cls, pts in instances:
@@ -123,7 +123,7 @@ class SegDataset(Dataset):
         if img is None:
             raise RuntimeError(f"无法读取 {p}")
         h0, w0 = img.shape[:2]
-        inst = read_yolo_seg(self.lbl_dir / f"{p.stem}.txt", w0, h0)
+        inst = read_polygon_seg(self.lbl_dir / f"{p.stem}.txt", w0, h0)
         sem = build_semantic(inst, w0, h0, self.img_size)
 
         img_r = cv2.resize(img, (self.img_size, self.img_size),

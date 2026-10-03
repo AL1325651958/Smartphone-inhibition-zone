@@ -8,12 +8,12 @@ generic backbone:
     early downsampling) and the final feature map stays at 7x7 rather than 4x4;
   * disks are photographed at different orientations and scales across batches,
     so features from all four stages are fused instead of using only the last;
-  * batch appearance varies a lot, so normalisation is BatchNorm (as in YOLO)
+  * batch appearance varies a lot, so normalisation is BatchNorm (as in standard CNN blocks)
     with SiLU activations, plus squeeze-excitation for channel re-weighting;
   * printed strokes are thin, so a high-pass (difference-of-Gaussians) branch is
     computed and injected early, giving the network an explicit edge signal.
 
-Ideas borrowed from YOLO-classification: BN+SiLU blocks, CSP-style split and
+Ideas borrowed from common CNN classification designs: BN+SiLU blocks, CSP-style split and
 concatenate, SPPF for context, 1x1 conv classifier head. The arrangement,
 the multi-scale pooling fusion, the learned scale gate and the high-pass stem
 are specific to this problem.
@@ -32,7 +32,7 @@ VARIANTS = {
 
 
 class ConvBNAct(nn.Module):
-    """Conv -> BatchNorm -> SiLU (YOLO's basic block)."""
+    """Conv -> BatchNorm -> SiLU basic block."""
 
     def __init__(self, c1, c2, k=3, s=1, g=1):
         super().__init__()

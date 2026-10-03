@@ -7,7 +7,7 @@
     seg_csharp.json            每图实例列表
     masks/<stem>__<Class>_<id>.png   640×640 二值掩膜
 
-真值来自 `Antibacterial zone mask/labels/<stem>.txt`（YOLO-seg，类别 0=Area/抑菌圈，1=Yaoping/药片）。
+真值来自 `Antibacterial zone mask/labels/<stem>.txt`（多边形分割格式，类别 0=Area/抑菌圈，1=Yaoping/药片）。
 比较在 **640×640 模型尺度** 上进行：真值多边形坐标按 (640/原图宽, 640/原图高) 缩放，
 与 App 的「整图直接 resize 到 640」完全一致。
 """
@@ -26,7 +26,7 @@ CLASSES = {0: "Area", 1: "Yaoping"}
 IOU_MATCH = 0.5
 
 
-def read_yolo_seg(path: Path, w: int, h: int):
+def read_polygon_seg(path: Path, w: int, h: int):
     out = []
     if not path.is_file():
         return out

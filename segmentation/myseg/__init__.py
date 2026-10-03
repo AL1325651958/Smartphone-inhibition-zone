@@ -1,9 +1,9 @@
-"""myseg — 抑菌圈分割模型（原生 PyTorch，不依赖 YOLO/Ultralytics）。
+"""myseg — 抑菌圈分割模型（原生 PyTorch）。
 
 模块
 ----
 config          全局配置
-labels          YOLO-seg 标签 <-> 多边形 互转、mask 栅格化、几何测量
+labels          多边形分割标签 <-> 多边形 互转、mask 栅格化、几何测量
 split_dataset   按物理平板划分 train/val/test
 augment         训练/验证集数据增强（几何 + 光度，同步变换多边形）
 dataset         torch Dataset

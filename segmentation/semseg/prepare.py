@@ -24,11 +24,11 @@ import numpy as np
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     from semseg import config as C
-    from semseg.dataset import read_yolo_seg, write_yolo_seg
+    from semseg.dataset import read_polygon_seg, write_polygon_seg
     from semseg.io_utils import imread, imwrite
 else:
     from semseg import config as C
-    from semseg.dataset import read_yolo_seg, write_yolo_seg
+    from semseg.dataset import read_polygon_seg, write_polygon_seg
     from semseg.io_utils import imread, imwrite
 
 
@@ -260,9 +260,9 @@ def augment_split(split: str, per_image: int, seed: int) -> dict:
         if img is None:
             continue
         h, w = img.shape[:2]
-        inst = read_yolo_seg(src_l / f"{stem}.txt", w, h)
+        inst = read_polygon_seg(src_l / f"{stem}.txt", w, h)
         imwrite(dst_i / f"{stem}.jpg", img, quality=95)
-        write_yolo_seg(dst_l / f"{stem}.txt", inst, w, h)
+        write_polygon_seg(dst_l / f"{stem}.txt", inst, w, h)
         stats["copied"] += 1
 
         ok, tries = 0, 0
@@ -275,7 +275,7 @@ def augment_split(split: str, per_image: int, seed: int) -> dict:
             ah, aw = aimg.shape[:2]
             name = f"{stem}_aug{ok:03d}"
             imwrite(dst_i / f"{name}.jpg", aimg, quality=95)
-            write_yolo_seg(dst_l / f"{name}.txt", ainst, aw, ah)
+            write_polygon_seg(dst_l / f"{name}.txt", ainst, aw, ah)
             ok += 1
             stats["augmented"] += 1
     return stats
@@ -334,7 +334,7 @@ def _preview() -> None:
         stem = stems[int(rng.integers(len(stems)))]
         img = imread(src_i / f"{stem}.jpg")
         h, w = img.shape[:2]
-        inst = read_yolo_seg(src_l / f"{stem}.txt", w, h)
+        inst = read_polygon_seg(src_l / f"{stem}.txt", w, h)
         if k > 0:
             got = None
             for _ in range(30):

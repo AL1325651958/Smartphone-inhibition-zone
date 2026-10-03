@@ -3,7 +3,7 @@
 基于 .NET MAUI + 自研 CNN 的抑菌圈自动分析移动应用。  
 拍摄或上传培养皿图片，自动分割抑菌区域与药片、配对、计算抑菌距离与比值，并对药片进行分类识别。
 
-> **模型已替换为本项目自研模型**（不再使用 YOLOv8）：
+> **模型为本项目自研模型**：
 > * `best.onnx` — `Antibacterial zone mask/semseg` 的 ResNet18 + U-Net 双通道语义分割（640×640）
 > * `class.onnx` — `药片CNN` 的 **DiskNet-small** 七类分类器（224×224，5 视图 TTA）
 >
@@ -228,7 +228,7 @@ Step 5  ShowCurrentCroppedRegion() 主线程
 | 项目 | 参数 |
 |---|---|
 | 架构 | ResNet18 编码器 + U-Net 解码器，双通道语义分割（14.4 M 参数） |
-| 训练代码 | `Antibacterial zone mask/semseg/`（原生 PyTorch，不依赖 YOLO/Ultralytics） |
+| 训练代码 | `Antibacterial zone mask/semseg/`（原生 PyTorch） |
 | 权重来源 | `Antibacterial zone mask/runs_semseg/20260918_051406_resnet18/best.pt` |
 | 导出脚本 | `Antibacterial zone mask/semseg/export_onnx.py` |
 | 输入 | `input` `[1,3,640,640]` float32，**RGB 0..255**（ImageNet 归一化已烘焙进图） |
@@ -252,7 +252,7 @@ Step 5  ShowCurrentCroppedRegion() 主线程
 | TTA | 5 视图：原图、水平翻转、垂直翻转、±10° 旋转（fill=128） |
 | 精度 | batch-disjoint 测试划分（28 张、来自 5 个采集批次）：单模型 **0.857**，加 TTA **0.929**；论文报告的 5 seed 集成同为 0.929 且 macro-F1 0.927（本 App 打包的是**单 seed + TTA**，与 0.929 对应） |
 
-> ⚠️ 这两个 ONNX 与 `_original_onnx/` 里备份的旧 YOLOv8 模型**不通用**：
+> ⚠️ 这两个 ONNX 与 `_original_onnx/` 里备份的旧模型**不通用**：
 > 输入预处理与输出结构都变了，必须配套使用当前版本的 `ZoneSegModel.cs` / `PillClassifier.cs`。
 
 ### 实例化：语义模型怎么给出「一个药片一个圈」
@@ -288,7 +288,7 @@ Step 5  ShowCurrentCroppedRegion() 主线程
   → 送入 best.onnx（均值/方差归一化在图内）
 ```
 
-⚠️ 与旧版 YOLOv8 的 Letterbox（等比缩放 + 灰边 114）完全不同：本模型是按
+⚠️ 与旧版模型的 Letterbox（等比缩放 + 灰边 114）完全不同：本模型是按
 「整图拉伸到正方形」训练的（`semseg/dataset.py`），再补灰边会引入训练时没见过的输入分布。
 
 ### 分类模型预处理（与 药片CNN 的 Dataset / ensemble_eval 一致）
@@ -391,7 +391,7 @@ opencv-python 5.0.0 / numpy / tqdm / matplotlib / onnx 1.22.0 / onnxruntime 1.23
 
 `Resources/Raw/best.onnx` 与 `Resources/Raw/class.onnx` 必须来自本项目自研模型，
 并与 `ZoneSegModel.cs` / `PillClassifier.cs` 的接口约定一致（见「模型说明」）。
-旧 YOLOv8 版本的备份在 `Antibacterial zone/_original_onnx/`，仅作存档，**不要混用**。
+旧版本模型的备份在 `Antibacterial zone/_original_onnx/`，仅作存档，**不要混用**。
 
 ### 2. 构建与运行
 
@@ -422,7 +422,7 @@ dotnet build -t:Run -f net10.0-windows10.0.19041.0
 **Q: 分析后显示 "No targets detected"**  
 A: 两个通道的概率都低于阈值 0.45。确保培养皿清晰可见、光线均匀、药片与抑菌圈对比度明显；
 若整批图都检不出，先确认 `Resources/Raw/best.onnx` 是自研 semseg 版本（输入 0..255 RGB、
-输出 `probs [1,2,640,640]`），而不是备份里的旧 YOLOv8 模型。
+输出 `probs [1,2,640,640]`），而不是备份里的旧模型。
 
 **Q: 药片分类置信度很低（< 50%）**  
 A: 三个常见原因：① 裁剪图太小/太糊；② 药片上的缩写被完全遮挡或反光；

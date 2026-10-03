@@ -8,7 +8,7 @@ using System.Linq;
 namespace Antibacterial_zone
 {
     /// <summary>
-    /// 自研语义分割模型（semseg：ResNet18 + U-Net）的 ONNX 封装，替换原来的 YOLOv8n-seg。
+    /// 自研语义分割模型（semseg：ResNet18 + U-Net）的 ONNX 封装。
     ///
     /// ONNX 接口约定（由 semseg/export_onnx.py 导出）：
     ///   输入  [1, 3, 640, 640] float32，RGB，数值范围 0..255
@@ -432,7 +432,7 @@ namespace Antibacterial_zone
 
         /// <summary>
         /// 逐行扫描提取轮廓（原图坐标）。掩膜来自语义模型，实例已由分区保证单连通，
-        /// 逐行左右边界即是可用轮廓（与旧版 YOLO 掩膜的取轮廓方式一致）。
+        /// 逐行左右边界即是可用轮廓（与旧版掩膜的取轮廓方式一致）。
         /// </summary>
         public List<SKPoint> GetContourPointsInOriginal(SegInstance inst)
         {

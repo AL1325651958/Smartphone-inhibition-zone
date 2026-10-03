@@ -22,7 +22,7 @@ object other than the 6 mm disk itself (internal calibration).
 | **Disk classifier** | `classification/` | Seven-class CNN (**DiskNet-small**, 3.89 M parameters, 224×224) that reads the antibiotic abbreviation printed on the disk: CRO / DA / E / LEV / LZD / P / VA. |
 | **Mobile app** | `app/` | .NET MAUI application (Android / iOS / Windows) that runs both ONNX models on-device and exports the annotated result. |
 | **Weights** | `weights/` (`.pt`) and `app/Antibacterial zone/Resources/Raw/` (`.onnx`) | Deployed models. |
-| **Data** | `segmentation/images/`, `segmentation/labels/` | 78 plate photographs (31 physical plates) and their YOLO-seg annotations. |
+| **Data** | `segmentation/images/`, `segmentation/labels/` | 78 plate photographs (31 physical plates) and their polygon annotations. |
 
 ---
 
@@ -59,7 +59,7 @@ Verification scripts (and the harness that reproduces every number quoted here) 
 .
 ├── segmentation/            # plate segmentation (+ measurement implementation)
 │   ├── images/              # 78 plate photographs (JPEG, 4032×3024 mostly)
-│   ├── labels/              # 78 YOLO-seg label files (class 0 = Area, 1 = Yaoping)
+│   ├── labels/              # 78 polygon-format label files (class 0 = Area, 1 = Yaoping)
 │   ├── semseg/              # ResNet18+U-Net: prepare / train / infer / export_onnx
 │   │   └── split.json       # train/val/test split, grouped by physical plate
 │   ├── myseg/               # first-generation implementation; contains the ±15° sector
@@ -151,7 +151,7 @@ python tools/verify/compare_seg.py out_seg
 
 ## Data availability
 
-* **Shipped here**: the 78 plate photographs (`segmentation/images/`), their YOLO-seg annotations
+* **Shipped here**: the 78 plate photographs (`segmentation/images/`), their polygon annotations
   (`segmentation/labels/`), the plate-grouped split (`segmentation/semseg/split.json`) and the
   classifier dataset index (`classification/manifests/*.csv`, which carries the class label and
   split of every crop).

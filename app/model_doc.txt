@@ -4,11 +4,11 @@
   输入 · 输出 · 预处理 · 后处理 · 核验结果
 ================================================================
 
-App 不使用 YOLO：两个模型都由本仓库的 Python 项目训练并导出为 ONNX，
+App 使用本项目自研模型：两个模型都由本仓库的 Python 项目训练并导出为 ONNX，
 配套的 C# 封装为 `ZoneSegModel.cs`（分割）与 `PillClassifier.cs`（分类）。
 
 旧模型备份：`Antibacterial zone/_original_onnx/`
-  · best.onnx / class.onnx —— 首投稿用的 YOLOv8n-seg 与 YOLOv8s-cls（仅存档，接口不兼容）
+  · best.onnx / class.onnx —— 首投稿用的旧模型（仅存档，接口不兼容）
   · class_pillcnn160.onnx  —— 中间版本（PillCNN@160，论文里的消融基线，非最终部署模型）
 
 
